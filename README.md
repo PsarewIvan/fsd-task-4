@@ -24,6 +24,11 @@
 - Запуск тестов `npm run test`
 - Покрытие тестами `npm run coverage`
 
+## Как скачать
+
+- По HTTPS: `https://github.com/PsarewIvan/fsd-task-4.git`
+- По SSH: `git@github.com:PsarewIvan/fsd-task-4.git`
+
 ## Инициализация слайдера на странице
 
 ```html

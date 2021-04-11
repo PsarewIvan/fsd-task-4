@@ -61,7 +61,6 @@ describe('All orientation testing', () => {
     expect(view.tooltips.max.root).toBeInTheDocument();
   });
 
-  // ----------------
   it('When user click to track, handler should be evoke', () => {
     const handler = jest.fn();
     const onFinish = jest.fn();
@@ -70,7 +69,6 @@ describe('All orientation testing', () => {
     expect(handler).toHaveBeenCalled();
   });
 
-  // ----------------
   it('When user click to scale, handler should be evoke', () => {
     const handler = jest.fn();
     const onFinish = jest.fn();
@@ -79,7 +77,6 @@ describe('All orientation testing', () => {
     expect(handler).toHaveBeenCalled();
   });
 
-  // ----------------
   it('When user click to thumb, handler should be evoke', () => {
     const handler = jest.fn();
     const onFinish = jest.fn();

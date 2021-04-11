@@ -131,11 +131,11 @@ class Model {
   // значений
   private changeInputValues(values: number[]): number[] {
     const currentValues = this.getSettings().values;
-    for (let i = 0; i < currentValues.length; i += 1) {
-      if (typeof values[i] !== 'number') values[i] = currentValues[i];
+    currentValues.forEach((value, i) => {
+      if (typeof values[i] !== 'number') values[i] = value;
       if (values[i] < this.settings.min) values[i] = this.settings.min;
       if (values[i] > this.settings.max) values[i] = this.settings.max;
-    }
+    });
     const clone = _.cloneDeep(this.settings.values);
     const isChangeBoth = values[0] !== clone[0] && values[1] !== clone[1];
     const isChangeFirst = values[0] !== clone[0] && values[1] === clone[1];

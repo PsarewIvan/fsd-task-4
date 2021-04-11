@@ -48,7 +48,7 @@ const babelOptions = (preset) => {
 const plugins = () => {
   const base = [
     new HTMLWebpackPlugin({
-      template: '../demo/html/index.pug',
+      template: '../demo/pug/pages/index.pug',
       filename: 'index.html',
     }),
     new CleanWebpackPlugin(),

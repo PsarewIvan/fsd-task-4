@@ -48,15 +48,12 @@ const babelOptions = (preset) => {
 const plugins = () => {
   const base = [
     new HTMLWebpackPlugin({
-      template: '../demo/html/index.html',
-      minify: {
-        collapseWhitespace: isProd, // минификация html
-      },
+      template: '../demo/html/index.pug',
+      filename: 'index.html',
     }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
-        // копируем, что угодно, перечисляя объекты
         {
           from: path.resolve(__dirname, 'demo/assets/favicon'),
           to: path.resolve(__dirname, 'dist'),
@@ -103,6 +100,12 @@ module.exports = {
   plugins: plugins(),
   module: {
     rules: [
+      {
+        test: /\.pug$/,
+        use: {
+          loader: 'pug-loader',
+        },
+      },
       {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],

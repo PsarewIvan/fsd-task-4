@@ -28,26 +28,37 @@ class Model {
 
   // Производит проверки перед обновлением модели
   public updateModel(newSettings: Partial<Settings>): void {
-    if (newSettings.values) this.updateValues(newSettings.values);
-    if (typeof newSettings.step === 'number') this.updateStep(newSettings.step);
-    if (typeof newSettings.min === 'number') this.updateMin(newSettings.min);
-    if (typeof newSettings.max === 'number') this.updateMax(newSettings.max);
+    const isHintsChange: boolean =
+      typeof newSettings.hints === 'boolean' &&
+      newSettings.hints !== this.settings.hints;
+    const isTooltipsChange: boolean =
+      typeof newSettings.tooltips === 'boolean' &&
+      newSettings.tooltips !== this.settings.tooltips;
+
+    if (newSettings.values) {
+      this.updateValues(newSettings.values);
+    }
+    if (typeof newSettings.step === 'number') {
+      this.updateStep(newSettings.step);
+    }
+    if (typeof newSettings.min === 'number') {
+      this.updateMin(newSettings.min);
+    }
+    if (typeof newSettings.max === 'number') {
+      this.updateMax(newSettings.max);
+    }
     if (typeof newSettings.scale === 'boolean') {
       this.setSettings({ scale: newSettings.scale });
     }
-    if (
-      typeof newSettings.hints === 'boolean' &&
-      newSettings.hints !== this.settings.hints
-    ) {
+    if (isHintsChange) {
       this.setSettings({ hints: newSettings.hints });
     }
-    if (
-      typeof newSettings.tooltips === 'boolean' &&
-      newSettings.tooltips !== this.settings.tooltips
-    ) {
+    if (isTooltipsChange) {
       this.setSettings({ tooltips: newSettings.tooltips });
     }
-    this.changeOrientation(newSettings.orientation);
+    if (newSettings.orientation) {
+      this.changeOrientation(newSettings.orientation);
+    }
   }
 
   // Возвращает значения с дополнительными полями, требуемыми для

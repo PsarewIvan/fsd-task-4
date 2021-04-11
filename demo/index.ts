@@ -1,9 +1,10 @@
 import $ from 'jquery';
-import Slider from './scripts/Slider/Slider';
-import './styles/styles.scss';
+import Slider from './pug/includes/slider/Slider';
+import './styles/global.scss';
+import './pug/pages/index.scss';
 import '../src';
 
-const Slider1 = new Slider($('#slider-1'), {
+const Slider1 = new Slider($('.js-slider-1'), {
   min: 300,
   max: 500,
   values: [400],
@@ -13,7 +14,7 @@ const Slider1 = new Slider($('#slider-1'), {
   subScaleMark: 5,
 });
 
-const Slider2 = new Slider($('#slider-2'), {
+const Slider2 = new Slider($('.js-slider-2'), {
   type: 'range',
   min: -100,
   max: 300,
@@ -22,7 +23,7 @@ const Slider2 = new Slider($('#slider-2'), {
   scale: true,
 });
 
-const SLider3 = new Slider($('#slider-3'), {
+const SLider3 = new Slider($('.js-slider-3'), {
   orientation: 'vertical',
   min: 0,
   max: 100,
@@ -33,7 +34,7 @@ const SLider3 = new Slider($('#slider-3'), {
   tooltips: false,
 });
 
-const Slider4 = new Slider($('#slider-4'), {
+const Slider4 = new Slider($('.js-slider-4'), {
   orientation: 'vertical',
   type: 'range',
   min: -100,

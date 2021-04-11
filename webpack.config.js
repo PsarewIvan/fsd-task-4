@@ -7,8 +7,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin;
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
@@ -68,20 +66,10 @@ const plugins = () => {
     new MiniCssExtractPlugin({
       filename: filename('css'),
     }),
-    // new webpack.ProvidePlugin({
-    //   $: 'jquery',
-    //   jQuery: 'jquery'
-    // }),
   ];
-
-  // if (isProd) {
-  //   base.push( new BundleAnalyzerPlugin() )
-  // }
-
   if (isDev) {
     base.push(new webpack.HotModuleReplacementPlugin());
   }
-
   return base;
 };
 
@@ -94,9 +82,6 @@ module.exports = {
   entry: {
     // входная точка приложения
     main: ['@babel/polyfill', '../demo/index.ts'],
-
-    // точка входа для стороннего кода
-    // analytics: './analytics.ts'
   },
   output: {
     // файл получаемый на выходе
@@ -108,13 +93,6 @@ module.exports = {
   resolve: {
     // расширения файлов которые ищет вебпак
     extensions: ['.js', ',json', '.ts'],
-
-    // позволяет использовать алиасы для разных путей
-    // alias: {
-    //   '@models': path.resolve(__dirname, 'src/models'),
-    //   '@styles': path.resolve(__dirname, 'src/styles'),
-    //   '@': path.resolve(__dirname, 'src')
-    // }
   },
   optimization: optimization(),
   devServer: {
@@ -122,9 +100,6 @@ module.exports = {
     hot: isDev,
   },
   target: process.env.NODE_ENV === 'development' ? 'web' : 'browserslist',
-
-  // при build-сборке выдает ошибку
-  // devtool: isDev ? 'source-map' : '',
   plugins: plugins(),
   module: {
     rules: [

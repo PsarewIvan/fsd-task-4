@@ -37,4 +37,11 @@ export default class Panel {
     this.orientation = new InputOrientation(this.panel, state, callback);
     this.type = new InputType(this.panel, state, callback);
   }
+
+  public updateElements(state: Partial<Settings>): void {
+    console.log('update');
+    this.thumbs.update(state);
+    this.min.updateAttribute(state.values);
+    this.max.updateAttribute(state.values);
+  }
 }

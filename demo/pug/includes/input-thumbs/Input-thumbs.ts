@@ -24,6 +24,11 @@ class InputThumbs {
     });
   }
 
+  public update(state: Partial<Settings>): void {
+    this.updateValues(state);
+    this.updateAttribute(state);
+  }
+
   private updateValues(state: Partial<Settings>): void {
     state.values.forEach((value, i) => {
       this.inputs[i].value = value.toString();

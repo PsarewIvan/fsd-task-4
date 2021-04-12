@@ -24,7 +24,7 @@ class InputMin {
     callback({ min: Number(this.input.value) });
   }
 
-  private updateAttribute(values: number[]): void {
+  public updateAttribute(values: number[]): void {
     this.input.max = values[0].toString();
   }
 }

@@ -39,7 +39,6 @@ export default class Panel {
   }
 
   public updateElements(state: Partial<Settings>): void {
-    console.log('update');
     this.thumbs.update(state);
     this.min.updateAttribute(state.values);
     this.max.updateAttribute(state.values);

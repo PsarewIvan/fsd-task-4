@@ -5,15 +5,17 @@ mixin input-orientation()
           class= "input-orientation__label"
         ) Horizontal
           input(
-            class= "input-orientation__input"
+            class= "input-orientation__input js-input-orientation__input"
             type= "radio"
-            name= "horizontal"
+            name= "orientation"
+            value= "horizontal"
           )
     label(
           class= "input-orientation__label"
         ) Vertical
           input(
-            class= "input-orientation__input"
+            class= "input-orientation__input js-input-orientation__input"
             type= "radio"
-            name= "horizontal"
+            name= "orientation"
+            value= "vertical"
           )

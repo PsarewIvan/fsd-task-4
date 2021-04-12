@@ -3,6 +3,10 @@
     display: flex;
     justify-content: space-between;
     cursor: pointer;
+
+    &--hide {
+      display: none;
+    }
   }
 
   &__input {

@@ -1,3 +1,7 @@
-mixin slider({classMod})
+include ../panel/panel
+
+mixin slider()
   .slider
-    .slider__wrapper(class= `js-slider-${classMod}`)
+    .slider__wrapper(class= `js-slider`)
+    .slider__panel
+      +panel()

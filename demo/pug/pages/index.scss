@@ -1,6 +1,16 @@
 @import './../includes/header/header.scss';
 @import './../includes/footer/footer.scss';
 @import './../includes/slider/slider.scss';
+@import './../includes/panel/panel.scss';
+@import './../includes/input-thumbs/input-thumbs.scss';
+@import './../includes/input-min/input-min.scss';
+@import './../includes/input-max/input-max.scss';
+@import './../includes/input-step/input-step.scss';
+@import './../includes/input-hints/input-hints.scss';
+@import './../includes/input-tooltips/input-tooltips.scss';
+@import './../includes/input-scale/input-scale.scss';
+@import './../includes/input-orientation/input-orientation.scss';
+@import './../includes/input-type/input-type.scss';
 
 .main {
   flex: 1 0 auto;

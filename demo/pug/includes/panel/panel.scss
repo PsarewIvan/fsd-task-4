@@ -1,0 +1,16 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+
+  &__input {
+    width: 100%;
+
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
+  }
+}

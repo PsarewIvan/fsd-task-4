@@ -1,0 +1,32 @@
+include ../input-thumbs/input-thumbs
+include ../input-min/input-min
+include ../input-max/input-max
+include ../input-step/input-step
+include ../input-hints/input-hints
+include ../input-tooltips/input-tooltips
+include ../input-scale/input-scale
+include ../input-orientation/input-orientation
+include ../input-type/input-type
+
+mixin panel()
+  .panel
+    .panel__input
+      +input-thumbs()
+    .panel__input
+      +input-min()
+    .panel__input
+      +input-max()
+    .panel__input
+      +input-step()
+    .panel__input
+      +input-hints()
+    .panel__input
+      +input-tooltips()
+    .panel__input
+      +input-scale()
+    .panel__input
+      +input-orientation()
+    .panel__input
+      +input-type()
+
+

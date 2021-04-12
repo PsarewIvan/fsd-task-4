@@ -1,0 +1,17 @@
+.input-step {
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    // width: 200px;
+    cursor: pointer;
+  }
+
+  &__input {
+    width: 60px;
+    margin-left: 12px;
+    padding: 2px 8px;
+    background-color: #faf9f9;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+  }
+}

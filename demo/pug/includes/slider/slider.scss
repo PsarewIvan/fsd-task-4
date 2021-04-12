@@ -34,47 +34,14 @@
   }
 
   &__panel {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    align-items: flex-start;
     width: 100%;
     padding: 14px;
     border-radius: 0 0 7px 7px;
     background-color: #bee3db;
 
-    & > *:not(:last-child) {
-      margin-bottom: 8px;
-    }
-
     @media (min-width: 590px) {
-      width: 235px;
+      max-width: 235px;
       border-radius: 0 7px 7px 0;
     }
-  }
-
-  &__input {
-    margin-left: 12px;
-    padding: 2px 8px;
-    background-color: #faf9f9;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-
-    &:not([type='radio']):not([type='checkbox']) {
-      width: 60px;
-    }
-
-    &[type='radio'],
-    &[type='checkbox'] {
-      cursor: pointer;
-    }
-  }
-
-  &__label {
-    display: flex;
-    justify-content: space-between;
-    width: 200px;
-    cursor: pointer;
   }
 }

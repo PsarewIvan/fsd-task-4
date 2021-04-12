@@ -1,0 +1,21 @@
+.input-orientation {
+  &__title {
+    margin: 0 0 5px;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+
+  &__input {
+    margin-left: 12px;
+    padding: 2px 8px;
+    background-color: #faf9f9;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}

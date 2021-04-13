@@ -1,7 +1,12 @@
 // Слой управления данными, который содержит бизнес-логику
 import _ from 'lodash';
 import MakeObservableSubject from './makeObservableSubject';
-import { Settings, SliderOrientation, ModelConstants } from '../types';
+import {
+  Settings,
+  SliderOrientation,
+  ModelConstants,
+  SliderType,
+} from '../types';
 
 class Model {
   private settings: Settings;
@@ -58,6 +63,9 @@ class Model {
     }
     if (newSettings.orientation) {
       this.changeOrientation(newSettings.orientation);
+    }
+    if (newSettings.type) {
+      this.changeType(newSettings.type);
     }
   }
 
@@ -126,13 +134,13 @@ class Model {
   // Проверяет изменились ли значения и вызывает метод записи
   // новых значений слайдера
   private updateValues(values: number[]): void {
-    const updateValues = this.changeInputValues(values);
+    const updatedValues = this.changeInputValues(values);
     const isValuesUpdate: boolean = !this.isEqual(
-      updateValues,
+      updatedValues,
       this.settings.values
     );
     if (isValuesUpdate) {
-      this.setSettings({ values: updateValues });
+      this.setSettings({ values: updatedValues });
       this.modelChangedSubject.notify('onChange', this.getSettings());
       this.onChangeCallback();
     }
@@ -193,7 +201,24 @@ class Model {
     const isInputChange = orientation !== this.settings.orientation;
     if (isInputValid && isInputChange) {
       this.setSettings({ orientation: orientation });
-      this.modelChangedSubject.notify('changeOrientation');
+      this.modelChangedSubject.notify('rebuildView');
+    }
+  }
+
+  private changeType(type: SliderType): void {
+    const isTypeValid =
+      type === this.constants.SINGLE || type === this.constants.RANGE;
+    const isTypeChange = type !== this.settings.type;
+    if (isTypeValid && isTypeChange) {
+      this.setSettings({ type: type });
+      const newValues: number[] =
+        type === this.constants.SINGLE
+          ? [(this.settings.max + this.settings.min) / 2]
+          : [this.settings.min, this.settings.max];
+      this.setSettings({ values: newValues });
+      this.modelChangedSubject.notify('onChange', this.getSettings());
+      this.onChangeCallback();
+      this.modelChangedSubject.notify('rebuildView');
     }
   }
 

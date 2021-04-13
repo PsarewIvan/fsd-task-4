@@ -13,10 +13,11 @@ class SliderPresenter {
   constructor(element: HTMLElement, options: Partial<Settings>) {
     this.element = element;
     this.model = new Model(options);
-    this.view = new View(this.element, this.model.getSettings());
-    this.viewHandler(options);
+    const settings = this.model.getSettings();
+    this.view = new View(this.element, settings);
+    this.viewHandler(settings);
     this.modelHandler();
-    this.modelHandlerOrientation();
+    this.rebuildViewCallback();
   }
 
   // Подписываемся на изменения положения ползунков во View
@@ -45,10 +46,10 @@ class SliderPresenter {
     );
   }
 
-  // Слушатель за изменением ориентации слайдера. При изменении
+  // Слушатель за изменением ориентации  и тпа слайдера. При изменении
   // переписывает и перерисовывает вид слайдера
-  private modelHandlerOrientation(): void {
-    this.model.modelChangedSubject.subscribe('changeOrientation', () => {
+  private rebuildViewCallback(): void {
+    this.model.modelChangedSubject.subscribe('rebuildView', () => {
       this.view.destroyAll();
       const settings = this.model.getSettings();
       this.view = new View(this.element, settings);

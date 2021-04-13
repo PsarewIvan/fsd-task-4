@@ -116,12 +116,7 @@ class Thumbs {
   // Обновляет местоположение ползунков на слайдере
   private updatePosition(percents: number[]): void {
     this.thumbs.forEach((thumb: SliderElement, i: number) => {
-      const currentPercent: number = Number(
-        thumb.root.style[thumb.directionType].slice(0, -1)
-      );
-      if (percents[i] * 100 !== currentPercent) {
-        thumb.root.style[thumb.directionType] = `${percents[i] * 100}%`;
-      }
+      thumb.root.style[thumb.directionType] = `${percents[i] * 100}%`;
     });
   }
 

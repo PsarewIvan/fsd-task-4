@@ -42,10 +42,10 @@ it('View should be update through observer', () => {
   expect(mock).toBe('view is update');
 });
 
-it('ViewHandler should be return settings when orientation changed', () => {
+it('ViewHandler should be return settings when orientation or type changed', () => {
   let mock = 'empty';
   presenter.viewHandler = (settings) => (mock = settings);
-  presenter.model.modelChangedSubject.notify('changeOrientation');
+  presenter.model.modelChangedSubject.notify('rebuildView');
   expect(mock).toEqual(state);
 });
 

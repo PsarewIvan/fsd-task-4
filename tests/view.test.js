@@ -48,12 +48,12 @@ describe('All orientation testing', () => {
   });
 
   it('One thumb must be in the document', () => {
-    expect(view.thumbs.thumbs[0].root).toBeInTheDocument();
-    expect(view.thumbs.thumbs.length).toBe(1);
+    expect(view.rail.thumbs.thumbs[0].root).toBeInTheDocument();
+    expect(view.rail.thumbs.thumbs.length).toBe(1);
   });
 
   it('Scale must be on the document', () => {
-    expect(view.scale.root).toBeInTheDocument();
+    expect(view.rail.scale.root).toBeInTheDocument();
   });
 
   it('Tooltips must be on the document', () => {
@@ -73,7 +73,7 @@ describe('All orientation testing', () => {
     const handler = jest.fn();
     const onFinish = jest.fn();
     view.viewChange(handler, onFinish);
-    userEvent.click(view.scale.root);
+    userEvent.click(view.rail.scale.root);
     expect(handler).toHaveBeenCalled();
   });
 
@@ -81,7 +81,7 @@ describe('All orientation testing', () => {
     const handler = jest.fn();
     const onFinish = jest.fn();
     view.viewChange(handler, onFinish);
-    userEvent.click(view.scale.root);
+    userEvent.click(view.rail.scale.root);
     expect(handler).toHaveBeenCalled();
   });
 
@@ -112,7 +112,7 @@ describe('Testing horizontal slider', () => {
     view.rail.root.getBoundingClientRect = jest.fn(() => ({
       left: 200,
     }));
-    const percent = view.percentFromThumbShift(300);
+    const percent = view.rail.percentFromThumbShift(300);
     expect(percent).toBe(0.2);
   });
 
@@ -121,7 +121,7 @@ describe('Testing horizontal slider', () => {
     view.rail.root.getBoundingClientRect = jest.fn(() => ({
       left: 200,
     }));
-    const percent = view.percentFromThumbShift(140);
+    const percent = view.rail.percentFromThumbShift(140);
     expect(percent).toBe(0);
   });
 
@@ -130,7 +130,7 @@ describe('Testing horizontal slider', () => {
     view.rail.root.getBoundingClientRect = jest.fn(() => ({
       left: 200,
     }));
-    const percent = view.percentFromThumbShift(820);
+    const percent = view.rail.percentFromThumbShift(820);
     expect(percent).toBe(1);
   });
 });
@@ -158,7 +158,7 @@ describe('Testing vertical slider', () => {
     view.rail.root.getBoundingClientRect = jest.fn(() => ({
       top: 50,
     }));
-    const percent = view.percentFromThumbShift(100);
+    const percent = view.rail.percentFromThumbShift(100);
     expect(percent).toBe(0.25);
   });
 
@@ -167,7 +167,7 @@ describe('Testing vertical slider', () => {
     view.rail.root.getBoundingClientRect = jest.fn(() => ({
       top: 50,
     }));
-    const percent = view.percentFromThumbShift(40);
+    const percent = view.rail.percentFromThumbShift(40);
     expect(percent).toBe(0);
   });
 
@@ -176,7 +176,7 @@ describe('Testing vertical slider', () => {
     view.rail.root.getBoundingClientRect = jest.fn(() => ({
       top: 50,
     }));
-    const percent = view.percentFromThumbShift(260);
+    const percent = view.rail.percentFromThumbShift(260);
     expect(percent).toBe(1);
   });
 });
@@ -193,8 +193,8 @@ describe('Testing range slider', () => {
   });
 
   it('Two thumbs must be in the document', () => {
-    expect(view.thumbs.thumbs[0].root).toBeInTheDocument();
-    expect(view.thumbs.thumbs[1].root).toBeInTheDocument();
-    expect(view.thumbs.thumbs.length).toBe(2);
+    expect(view.rail.thumbs.thumbs[0].root).toBeInTheDocument();
+    expect(view.rail.thumbs.thumbs[1].root).toBeInTheDocument();
+    expect(view.rail.thumbs.thumbs.length).toBe(2);
   });
 });

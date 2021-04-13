@@ -78,7 +78,7 @@ module.exports = {
   mode: 'development',
   entry: {
     // входная точка приложения
-    main: ['@babel/polyfill', '../demo/index.ts'],
+    main: ['@babel/polyfill', '../demo/pug/pages/index.ts'],
   },
   output: {
     // файл получаемый на выходе

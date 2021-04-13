@@ -39,11 +39,17 @@ interface ModelConstants {
 }
 
 interface TickState {
-  markNumber: number,
-  subMark: number,
-  index: number,
-  step: number,
-  min: number
+  markNumber: number;
+  subMark: number;
+  index: number;
+  step: number;
+  min: number;
+}
+
+interface HandleThumbParameter {
+  currentThumb: SliderElement;
+  handler: Function;
+  onFinish: Function;
 }
 
 type ThumbType = 'single' | 'from' | 'to';
@@ -76,4 +82,5 @@ export {
   SizeType,
   CoordsType,
   TickState,
+  HandleThumbParameter,
 };

@@ -44,10 +44,15 @@ class Scale extends SliderElement {
   }
 
   public clickEvent(handler: Function): void {
-    this.root.addEventListener('pointerdown', (evt: PointerEvent) => {
-      evt.preventDefault();
-      handler(evt[this.coordsType], evt);
-    });
+    this.root.addEventListener(
+      'pointerdown',
+      this.handleScalePointerDown.bind(this, handler)
+    );
+  }
+
+  private handleScalePointerDown(handler: Function, evt: PointerEvent): void {
+    evt.preventDefault();
+    handler(evt[this.coordsType], evt);
   }
 
   private renderMark(

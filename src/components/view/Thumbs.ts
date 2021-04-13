@@ -1,5 +1,5 @@
 import SliderElement from './SliderElement';
-import { Settings, RequiredThumb } from '../../types';
+import { Settings, RequiredThumb, HandleThumbParameter } from '../../types';
 
 class Thumbs {
   readonly state: Settings;
@@ -42,7 +42,7 @@ class Thumbs {
       currentThumb.distanceToScreen -
       this.getThumbSize() / 2;
 
-    const onMouseMove = (evt: PointerEvent): void => {
+    const handleDocumentPointerMove = (evt: PointerEvent): void => {
       evt.preventDefault();
       window.ontouchmove = (evt: Event) => {
         evt.preventDefault();
@@ -52,15 +52,15 @@ class Thumbs {
       handler(thumbShift, index);
     };
 
-    const onMouseUp = (): void => {
+    const handleDocumentPointerUp = (): void => {
       if (typeof onFinish === 'function') onFinish();
       window.ontouchmove = null;
-      document.removeEventListener('pointermove', onMouseMove);
-      document.removeEventListener('pointerup', onMouseUp);
+      document.removeEventListener('pointermove', handleDocumentPointerMove);
+      document.removeEventListener('pointerup', handleDocumentPointerUp);
     };
 
-    document.addEventListener('pointermove', onMouseMove);
-    document.addEventListener('pointerup', onMouseUp);
+    document.addEventListener('pointermove', handleDocumentPointerMove);
+    document.addEventListener('pointerup', handleDocumentPointerUp);
   }
 
   // Возвращает объект с данными ползунка, который необходимо
@@ -140,14 +140,26 @@ class Thumbs {
     handler: Function,
     onFinish: Function
   ): void {
-    currentThumb.root.addEventListener('pointerdown', (evt: PointerEvent) => {
-      evt.preventDefault();
-      this.mouseMoveEvent(currentThumb, evt, handler, onFinish);
-    });
+    currentThumb.root.addEventListener(
+      'pointerdown',
+      this.handleThumbPointerDown.bind(this, {
+        currentThumb,
+        handler,
+        onFinish,
+      })
+    );
 
     currentThumb.root.ondragstart = function () {
       return false;
     };
+  }
+
+  private handleThumbPointerDown(
+    param: HandleThumbParameter,
+    evt: PointerEvent
+  ): void {
+    evt.preventDefault();
+    this.mouseMoveEvent(param.currentThumb, evt, param.handler, param.onFinish);
   }
 
   private getCurrentThumbIndex(currentThumb: SliderElement): number {

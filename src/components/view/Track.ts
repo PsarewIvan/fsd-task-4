@@ -5,12 +5,18 @@ class TrackView extends SliderElement {
   constructor(rootNode: HTMLElement, state: Settings) {
     super(rootNode, ['free-slider__track'], state.orientation);
   }
+
   // Слушатель для обработки клика по треку
   public clickEvent(handler: Function): void {
-    this.root.addEventListener('pointerdown', (evt: PointerEvent) => {
-      evt.preventDefault();
-      handler(evt[this.coordsType], evt);
-    });
+    this.root.addEventListener(
+      'pointerdown',
+      this.handleTrackPointerDown.bind(this, handler)
+    );
+  }
+
+  private handleTrackPointerDown(handler: Function, evt: PointerEvent): void {
+    evt.preventDefault();
+    handler(evt[this.coordsType], evt);
   }
 }
 

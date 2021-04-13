@@ -16,8 +16,14 @@ class SliderPresenter {
     const settings = this.model.getSettings();
     this.view = new View(this.element, settings);
     this.viewHandler(settings);
-    this.modelHandler();
-    this.rebuildViewCallback();
+    this.model.modelChangedSubject.subscribe(
+      'viewUpdate',
+      this.handleViewUpdate.bind(this)
+    );
+    this.model.modelChangedSubject.subscribe(
+      'rebuildView',
+      this.handleViewRebuild.bind(this)
+    );
   }
 
   // Подписываемся на изменения положения ползунков во View
@@ -37,24 +43,17 @@ class SliderPresenter {
 
   // Слушатель изменения значений в модели. При изменении значений
   // вызывает метод обновления View
-  private modelHandler(): void {
-    this.model.modelChangedSubject.subscribe(
-      'viewUpdate',
-      (settings: Settings) => {
-        this.view.update(settings);
-      }
-    );
+  private handleViewUpdate(settings: Settings): void {
+    this.view.update(settings);
   }
 
   // Слушатель за изменением ориентации  и тпа слайдера. При изменении
   // переписывает и перерисовывает вид слайдера
-  private rebuildViewCallback(): void {
-    this.model.modelChangedSubject.subscribe('rebuildView', () => {
-      this.view.destroyAll();
-      const settings = this.model.getSettings();
-      this.view = new View(this.element, settings);
-      this.viewHandler(settings);
-    });
+  private handleViewRebuild(): void {
+    this.view.destroyAll();
+    const settings = this.model.getSettings();
+    this.view = new View(this.element, settings);
+    this.viewHandler(settings);
   }
 
   // Публичные методы взаимодействия со слайдером

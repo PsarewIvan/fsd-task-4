@@ -2,12 +2,10 @@
 // связанную с отображением, а также реагирует на взаимодействие
 // пользователя с приложением
 
-import { Settings, RequiredThumb, SliderOrientation } from '../../types';
+import { Settings, SliderOrientation } from '../../types';
 import Track from './Track';
 import Rail from './Rail';
-import Thumbs from './Thumbs';
 import Bar from './Bar';
-import Scale from './Scale';
 import Tooltips from './Tooltips';
 
 class View {
@@ -17,8 +15,6 @@ class View {
   private track: Track;
   private rail: Rail;
   private bar: Bar;
-  private scale: Scale;
-  private thumbs: Thumbs;
   private tooltips: Tooltips;
 
   constructor(rootNode: HTMLElement, settings: Settings) {
@@ -32,9 +28,8 @@ class View {
 
   // Обновляет элементы слайдера
   public update(settings: Settings): void {
-    this.thumbs.update(settings.percents, settings.values, settings.hints);
+    this.rail.update(settings);
     this.bar.update(this.formatPercents(settings.percents));
-    this.scale.update(settings);
     this.tooltips.update(settings);
     if (settings.onUpdate && this.isFirstChange) {
       settings.onUpdate(settings.values);
@@ -45,20 +40,9 @@ class View {
   // Создает слушателей за наблюдением состояния слайдера
   // при взаимодействии пользователя
   public viewChange(handler: Function, onFinish: Function): void {
-    // Слушатель на ползунки
-    this.thumbs.addMouseListener((thumbShift: number, index: number) => {
-      const percent = this.percentFromThumbShift(thumbShift);
-      handler(percent, index);
-    }, onFinish);
-
-    // Слушатель на клики по треку
+    this.rail.addListeners(handler, onFinish);
     this.track.clickEvent((clickCoords: number, evt: PointerEvent) => {
-      this.clickHandler(clickCoords, handler, evt, onFinish);
-    });
-
-    // Слушатель на шкалу значений
-    this.scale.clickEvent((clickCoords: number, evt: PointerEvent) => {
-      this.clickHandler(clickCoords, handler, evt, onFinish);
+      this.rail.clickHandler(clickCoords, handler, evt, onFinish);
     });
   }
 
@@ -73,8 +57,6 @@ class View {
     this.track = new Track(this.wrapper, settings);
     this.rail = new Rail(this.wrapper, settings);
     this.bar = new Bar(this.wrapper, settings);
-    this.thumbs = new Thumbs(this.rail.root, settings);
-    this.scale = new Scale(this.rail.root, settings);
     this.tooltips = new Tooltips(this.wrapper);
   }
 
@@ -88,48 +70,11 @@ class View {
     this.root.append(this.wrapper);
   }
 
-  // Функция обработчик, вызывающаяся для перемещения ползунков
-  private clickHandler(
-    clickCoords: number,
-    handler: Function,
-    evt: PointerEvent,
-    onFinish: Function
-  ): void {
-    const percent = this.percentFromThumbShift(clickCoords);
-    const requiredThumb: RequiredThumb = this.thumbs.requiredThumb(clickCoords);
-    handler(percent, requiredThumb.index);
-
-    this.thumbs.mouseMoveEvent(
-      requiredThumb.root,
-      evt,
-      (thumbShift: number) => {
-        const percent = this.percentFromThumbShift(thumbShift);
-        handler(percent, requiredThumb.index);
-      },
-      onFinish
-    );
-  }
-
-  // Возвращает значение смещения ползунка в процентах, относительно
-  // ширины рабочей области слайдера
-  private percentFromThumbShift(thumbShift: number): number {
-    const railSize: number = this.rail.size;
-    const distanceFromRailToScreen: number = this.rail.distanceToScreen;
-    let percent: number = (thumbShift - distanceFromRailToScreen) / railSize;
-    if (percent <= 0) {
-      percent = 0;
-    }
-    if (percent >= 1) {
-      percent = 1;
-    }
-    return percent;
-  }
-
   // Форматирует текущее процентное значение в проценты необходимые
   // для отрисовки бара
   private formatPercents(percents: number[]): number[] {
     const trackSize: number = this.track.size;
-    const thumbsSize: number = this.thumbs.getThumbSize();
+    const thumbsSize: number = this.rail.getThumbSize();
     const ratio: number = (trackSize - thumbsSize) / trackSize;
     const extraRatio: number = thumbsSize / trackSize / 2;
     const formatPercents = [];

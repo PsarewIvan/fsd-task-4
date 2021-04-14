@@ -77,9 +77,8 @@ class View {
     const thumbsSize: number = this.rail.getThumbSize();
     const ratio: number = (trackSize - thumbsSize) / trackSize;
     const extraRatio: number = thumbsSize / trackSize / 2;
-    const formatPercents = [];
-    percents.forEach((percent) => {
-      formatPercents.push(percent * ratio + extraRatio);
+    const formatPercents = percents.map((percent) => {
+      return percent * ratio + extraRatio;
     });
     return formatPercents;
   }

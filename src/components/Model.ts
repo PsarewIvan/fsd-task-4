@@ -24,7 +24,7 @@ class Model {
     const defaultParameter = this.getDefaultParameter(options);
     if (options) {
       const newOptions = { ...defaultParameter, ...options };
-      this.optionsCheck(newOptions);
+      this.optionsCheckAndRewrite(newOptions);
       this.setSettings(newOptions, defaultParameter);
     } else {
       this.setSettings(defaultParameter);
@@ -75,8 +75,8 @@ class Model {
   public getSettings(): Settings {
     const settingsClone: Settings = _.cloneDeep(this.settings);
     const range: number = settingsClone.max - settingsClone.min;
-    settingsClone.values.forEach((value: number, i: number) => {
-      settingsClone.percents[i] = (value - settingsClone.min) / range;
+    settingsClone.percents = settingsClone.values.map((value: number) => {
+      return (value - settingsClone.min) / range;
     });
     return settingsClone;
   }
@@ -233,7 +233,7 @@ class Model {
   }
 
   // Проверка новых значений и их перезапись в случае выхода из диапазона
-  private optionsCheck(options: Partial<Settings>) {
+  private optionsCheckAndRewrite(options: Partial<Settings>): void {
     options.values.forEach((value: number, i: number): void => {
       if (value < options.min) options.values[i] = options.min;
       if (value > options.max) options.values[i] = options.max;
@@ -276,11 +276,7 @@ class Model {
 
   // Неглубокое копирование массивов
   private arrCopy(arr: number[]): number[] {
-    const newArr = [];
-    arr.forEach((value: number, i: number) => {
-      newArr[i] = value;
-    });
-    return newArr;
+    return arr.map((value: number) => value);
   }
 
   private onChangeCallback(): void {

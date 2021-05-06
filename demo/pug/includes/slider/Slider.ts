@@ -18,10 +18,12 @@ class Slider {
       this.callback.bind(this)
     );
     this.addUpdateCallback();
+    this.changeSliderClassModificator(state.orientation);
   }
 
   private callback(newState: Partial<Settings>): void {
     $(this.slider).freeSlider('update', newState);
+    this.changeSliderClassModificator(newState.orientation);
   }
 
   private updateState(state?: Partial<Settings>): void {
@@ -36,6 +38,19 @@ class Slider {
   private updateElements(state: Partial<Settings>): void {
     this.updateState(state);
     this.panel.updateElements(this.state);
+  }
+
+  changeSliderClassModificator(orientation: string): void {
+    switch (orientation) {
+      case 'horizontal':
+        this.slider.classList.add('slider__wrapper--horizontal');
+        this.slider.classList.remove('slider__wrapper--vertical');
+        break;
+      case 'vertical':
+        this.slider.classList.add('slider__wrapper--vertical');
+        this.slider.classList.remove('slider__wrapper--horizontal');
+        break;
+    }
   }
 }
 

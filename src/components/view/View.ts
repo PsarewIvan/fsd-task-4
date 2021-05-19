@@ -2,7 +2,12 @@
 // связанную с отображением, а также реагирует на взаимодействие
 // пользователя с приложением
 
-import { Settings, SliderOrientation } from '../../types';
+import {
+  Settings,
+  SliderOrientation,
+  ViewChangeHandler,
+  ViewOnFinishCallback,
+} from '../../types';
 import Track from './Track';
 import Rail from './Rail';
 import Bar from './Bar';
@@ -39,7 +44,10 @@ class View {
 
   // Создает слушателей за наблюдением состояния слайдера
   // при взаимодействии пользователя
-  public viewChange(handler: Function, onFinish: Function): void {
+  public viewChange(
+    handler: ViewChangeHandler,
+    onFinish: ViewOnFinishCallback
+  ): void {
     this.rail.addListeners(handler, onFinish);
     this.track.clickEvent((clickCoords: number, evt: PointerEvent) => {
       this.rail.clickHandler(clickCoords, handler, evt, onFinish);

@@ -22,8 +22,8 @@ interface Methods {
   init: (options?: Partial<Settings>) => JQuery;
   update: (state: Partial<Settings>) => void;
   getState: () => Settings;
-  onChange: (handler: Function) => void;
-  onLoad: (handler: Function) => void;
+  onChange: (handler: PublicHandler) => void;
+  onLoad: (handler: PublicHandler) => void;
 }
 
 interface RequiredThumb {
@@ -48,8 +48,8 @@ interface TickState {
 
 interface HandleThumbParameter {
   currentThumb: SliderElement;
-  handler: Function;
-  onFinish: Function;
+  handler: ViewChangeHandler;
+  onFinish: ViewOnFinishCallback;
 }
 
 type ThumbType = 'single' | 'from' | 'to';
@@ -59,12 +59,17 @@ type DirectionType = 'left' | 'top';
 type OffsetSizeType = 'offsetWidth' | 'offsetHeight';
 type SizeType = 'width' | 'height';
 type CoordsType = 'clientX' | 'clientY';
+type PublicHandler = (settings: Partial<Settings>) => void;
+type ViewChangeHandler = (percent: number, index: number) => void;
+type ViewOnFinishCallback = () => void;
+type ScaleHandler = (cords: number, evt: PointerEvent) => void;
+type TrackHandler = (cords: number, evt: PointerEvent) => void;
 
 declare global {
   interface JQuery {
     freeSlider: (
       options?: Partial<Settings> | string,
-      arg?: Partial<Settings> | Function
+      arg?: Partial<Settings> | PublicHandler
     ) => JQuery | Array<number> | Settings | void;
   }
 }
@@ -83,4 +88,9 @@ export {
   CoordsType,
   TickState,
   HandleThumbParameter,
+  PublicHandler,
+  ViewChangeHandler,
+  ViewOnFinishCallback,
+  ScaleHandler,
+  TrackHandler,
 };

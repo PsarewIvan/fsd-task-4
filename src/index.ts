@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import FreeSlider from './FreeSlider';
-import { Settings, Methods } from './types';
+import { Settings, Methods, PublicHandler } from './types';
 
 (($) => {
   const methods: Methods = {
@@ -19,18 +19,18 @@ import { Settings, Methods } from './types';
       return $(this).data().freeSlider.method().update(state);
     },
 
-    onChange(handler: Function): void {
+    onChange(handler: PublicHandler): void {
       $(this).data().freeSlider.method().onChange(handler);
     },
 
-    onLoad(handler: Function): void {
+    onLoad(handler: PublicHandler): void {
       $(this).data().freeSlider.method().onLoad(handler);
     },
   };
 
   $.fn.freeSlider = function (
     action?: Partial<Settings> | string,
-    args?: Partial<Settings> | Function
+    args?: Partial<Settings> | PublicHandler
   ) {
     if (typeof action === 'string' && methods[action]) {
       return methods[action].call(this, args);

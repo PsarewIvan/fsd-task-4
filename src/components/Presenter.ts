@@ -3,7 +3,7 @@
 // реагирует на сообщения об обновлении модели и обновляет отображение
 import Model from './Model';
 import View from './view/View';
-import { Settings } from '../types';
+import { Settings, PublicHandler } from '../types';
 
 class SliderPresenter {
   private model: Model;
@@ -57,7 +57,7 @@ class SliderPresenter {
   }
 
   // Публичные методы взаимодействия со слайдером
-  public onChange(handler: Function) {
+  public onChange(handler: PublicHandler) {
     this.model.modelChangedSubject.subscribe('onChange', (state: Settings) => {
       if (handler) {
         handler(state);
@@ -65,7 +65,7 @@ class SliderPresenter {
     });
   }
 
-  public onLoad(handler: Function) {
+  public onLoad(handler: PublicHandler) {
     if (handler) {
       handler(this.model.getSettings());
     }

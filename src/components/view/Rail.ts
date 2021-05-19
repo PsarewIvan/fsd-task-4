@@ -1,7 +1,12 @@
 import SliderElement from './SliderElement';
 import Thumbs from './Thumbs';
 import Scale from './Scale';
-import { Settings, RequiredThumb } from '../../types';
+import {
+  Settings,
+  RequiredThumb,
+  ViewChangeHandler,
+  ViewOnFinishCallback,
+} from '../../types';
 
 class Rail extends SliderElement {
   private scale: Scale;
@@ -18,7 +23,10 @@ class Rail extends SliderElement {
     this.scale.update(settings);
   }
 
-  public addListeners(handler: Function, onFinish: Function): void {
+  public addListeners(
+    handler: ViewChangeHandler,
+    onFinish: ViewOnFinishCallback
+  ): void {
     this.thumbs.addMouseListener((thumbShift: number, index: number) => {
       const percent = this.percentFromThumbShift(thumbShift);
       handler(percent, index);
@@ -31,9 +39,9 @@ class Rail extends SliderElement {
 
   public clickHandler(
     clickCoords: number,
-    handler: Function,
+    handler: ViewChangeHandler,
     evt: PointerEvent,
-    onFinish: Function
+    onFinish: ViewOnFinishCallback
   ): void {
     const percent = this.percentFromThumbShift(clickCoords);
     const requiredThumb: RequiredThumb = this.thumbs.requiredThumb(clickCoords);

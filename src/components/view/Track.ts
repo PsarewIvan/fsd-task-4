@@ -1,5 +1,5 @@
 import SliderElement from './SliderElement';
-import { Settings } from '../../types';
+import { Settings, TrackHandler } from '../../types';
 
 class TrackView extends SliderElement {
   constructor(rootNode: HTMLElement, state: Settings) {
@@ -7,14 +7,17 @@ class TrackView extends SliderElement {
   }
 
   // Слушатель для обработки клика по треку
-  public clickEvent(handler: Function): void {
+  public clickEvent(handler: TrackHandler): void {
     this.root.addEventListener(
       'pointerdown',
       this.handleTrackPointerDown.bind(this, handler)
     );
   }
 
-  private handleTrackPointerDown(handler: Function, evt: PointerEvent): void {
+  private handleTrackPointerDown(
+    handler: TrackHandler,
+    evt: PointerEvent
+  ): void {
     evt.preventDefault();
     handler(evt[this.coordsType], evt);
   }

@@ -1,3 +1,5 @@
+import { Settings } from './../types';
+
 class MakeObservableSubject {
   private observers: Object;
 
@@ -5,7 +7,7 @@ class MakeObservableSubject {
     this.observers = {};
   }
 
-  public subscribe(name: string, observer: Function): void {
+  public subscribe(name: string, observer: (state?: Settings) => void): void {
     if (typeof observer !== 'function') {
       throw new Error('observer must be a function');
     }

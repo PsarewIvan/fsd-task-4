@@ -1,5 +1,5 @@
 import SliderElement from './SliderElement';
-import { Settings, TickState } from '../../types';
+import { Settings, TickState, ScaleHandler } from '../../types';
 
 class Scale extends SliderElement {
   readonly state: Settings;
@@ -43,14 +43,17 @@ class Scale extends SliderElement {
     this.root.style.display = isDisplayNone ? 'none' : 'block';
   }
 
-  public clickEvent(handler: Function): void {
+  public clickEvent(handler: ScaleHandler): void {
     this.root.addEventListener(
       'pointerdown',
       this.handleScalePointerDown.bind(this, handler)
     );
   }
 
-  private handleScalePointerDown(handler: Function, evt: PointerEvent): void {
+  private handleScalePointerDown(
+    handler: ScaleHandler,
+    evt: PointerEvent
+  ): void {
     evt.preventDefault();
     handler(evt[this.coordsType], evt);
   }

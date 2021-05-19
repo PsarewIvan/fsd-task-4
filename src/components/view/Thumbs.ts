@@ -1,5 +1,11 @@
 import SliderElement from './SliderElement';
-import { Settings, RequiredThumb, HandleThumbParameter } from '../../types';
+import {
+  Settings,
+  RequiredThumb,
+  HandleThumbParameter,
+  ViewChangeHandler,
+  ViewOnFinishCallback,
+} from '../../types';
 
 class Thumbs {
   readonly state: Settings;
@@ -24,7 +30,10 @@ class Thumbs {
 
   // Создает слушателей на ползунках для обработки событий
   // работы пользователя
-  public addMouseListener(handler: Function, onFinish: Function): void {
+  public addMouseListener(
+    handler: ViewChangeHandler,
+    onFinish: ViewOnFinishCallback
+  ): void {
     this.thumbs.forEach((thumb: SliderElement) => {
       this.mouseListener(thumb, handler, onFinish);
     });
@@ -34,8 +43,8 @@ class Thumbs {
   public mouseMoveEvent(
     currentThumb: SliderElement,
     evt: PointerEvent,
-    handler: Function,
-    onFinish: Function
+    handler: ViewChangeHandler,
+    onFinish: ViewOnFinishCallback
   ): void {
     const clickOffset =
       evt[currentThumb.coordsType] -
@@ -137,8 +146,8 @@ class Thumbs {
   // при клике на ползунок и его движении
   private mouseListener(
     currentThumb: SliderElement,
-    handler: Function,
-    onFinish: Function
+    handler: ViewChangeHandler,
+    onFinish: ViewChangeHandler
   ): void {
     currentThumb.root.addEventListener(
       'pointerdown',

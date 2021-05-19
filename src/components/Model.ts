@@ -88,7 +88,7 @@ class Model {
     if (this.settings.type === this.constants.SINGLE) {
       this.updateModel({ values: [calcValue] });
     } else {
-      const newValues = this.arrCopy(this.settings.values);
+      const newValues = [...this.settings.values];
       newValues[index] = calcValue;
       this.updateModel({ values: newValues });
     }
@@ -313,11 +313,6 @@ class Model {
     const isSameInside = arr1.join() !== arr2.join();
     if (isEqualLength || isSameInside) return false;
     return true;
-  }
-
-  // Неглубокое копирование массивов
-  private arrCopy(arr: number[]): number[] {
-    return arr.map((value: number) => value);
   }
 
   private onChangeCallback(): void {

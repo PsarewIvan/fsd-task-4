@@ -1,4 +1,4 @@
-import { Settings } from './../../../types';
+import { Settings, CallBack } from './../../../types';
 
 class InputThumbs {
   private inputs: NodeListOf<HTMLInputElement>;
@@ -7,7 +7,7 @@ class InputThumbs {
   constructor(
     panel: HTMLDivElement,
     state: Partial<Settings>,
-    callback: Function
+    callback: CallBack
   ) {
     this.LABEL_HIDE_CLASS = 'input-thumbs__label--hide';
     this.inputs = panel.querySelectorAll('.js-input-thumbs__input');
@@ -48,7 +48,7 @@ class InputThumbs {
     });
   }
 
-  private handleInputChange(callback: Function, index: number): void {
+  private handleInputChange(callback: CallBack, index: number): void {
     const values = [];
     values[index] = Number(this.inputs[index].value);
     callback({ values: values });

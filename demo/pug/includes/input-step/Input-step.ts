@@ -1,4 +1,4 @@
-import { Settings } from './../../../types';
+import { Settings, CallBack } from './../../../types';
 
 class InputStep {
   private input: HTMLInputElement;
@@ -6,7 +6,7 @@ class InputStep {
   constructor(
     panel: HTMLDivElement,
     state: Partial<Settings>,
-    callback: Function
+    callback: CallBack
   ) {
     this.input = panel.querySelector('.js-input-step__input');
     this.input.min = `0`;
@@ -18,7 +18,7 @@ class InputStep {
     );
   }
 
-  private handleInputChange(callback: Function): void {
+  private handleInputChange(callback: CallBack): void {
     callback({ step: Number(this.input.value) });
   }
 }

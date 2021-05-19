@@ -4,8 +4,8 @@ interface Settings {
   step: number;
   values: Array<number>;
   percents: Array<number>;
-  type: 'single' | 'range';
-  orientation: 'horizontal' | 'vertical';
+  type: string;
+  orientation: string;
   scale: boolean;
   scaleMark: number;
   subScaleMark: number;
@@ -25,4 +25,6 @@ interface InputElementState {
   value?: string;
 }
 
-export { Settings, InputElementState };
+type CallBack = (newState: Partial<Settings>) => void;
+
+export { Settings, InputElementState, CallBack };

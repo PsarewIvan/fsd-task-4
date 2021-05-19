@@ -1,4 +1,4 @@
-import { Settings } from './../../../types';
+import { Settings, CallBack } from './../../../types';
 
 class InputScale {
   private input: HTMLInputElement;
@@ -6,7 +6,7 @@ class InputScale {
   constructor(
     panel: HTMLDivElement,
     state: Partial<Settings>,
-    callback: Function
+    callback: CallBack
   ) {
     this.input = panel.querySelector('.js-input-scale__input');
     this.input.checked = state.scale;
@@ -16,7 +16,7 @@ class InputScale {
     );
   }
 
-  private handleInputChange(callback: Function): void {
+  private handleInputChange(callback: CallBack): void {
     callback({ scale: this.input.checked });
   }
 }

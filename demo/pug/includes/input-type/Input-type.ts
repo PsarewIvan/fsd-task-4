@@ -1,4 +1,4 @@
-import { Settings } from './../../../types';
+import { Settings, CallBack } from './../../../types';
 
 class InputType {
   private inputs: NodeListOf<HTMLInputElement>;
@@ -7,7 +7,7 @@ class InputType {
   constructor(
     panel: HTMLDivElement,
     state: Partial<Settings>,
-    callback: Function
+    callback: CallBack
   ) {
     InputType.id += 1;
     this.inputs = panel.querySelectorAll('.js-input-type__input');
@@ -26,7 +26,7 @@ class InputType {
     });
   }
 
-  private handleInputChange(callback: Function, input: HTMLInputElement): void {
+  private handleInputChange(callback: CallBack, input: HTMLInputElement): void {
     callback({ type: input.value });
   }
 

@@ -1,4 +1,4 @@
-import { Settings } from './../../../types';
+import { Settings, CallBack } from './../../../types';
 
 class InputMin {
   private input: HTMLInputElement;
@@ -6,7 +6,7 @@ class InputMin {
   constructor(
     panel: HTMLDivElement,
     state: Partial<Settings>,
-    callback: Function
+    callback: CallBack
   ) {
     this.input = panel.querySelector('.js-input-min__input');
     this.input.value = state.min.toString();
@@ -20,7 +20,7 @@ class InputMin {
     this.input.value = min.toString();
   }
 
-  private handleInputChange(callback: Function): void {
+  private handleInputChange(callback: CallBack): void {
     callback({ min: Number(this.input.value) });
   }
 }

@@ -1,4 +1,4 @@
-import { Settings } from './../../../types';
+import { Settings, CallBack } from './../../../types';
 
 class InputTooltips {
   private input: HTMLInputElement;
@@ -6,7 +6,7 @@ class InputTooltips {
   constructor(
     panel: HTMLDivElement,
     state: Partial<Settings>,
-    callback: Function
+    callback: CallBack
   ) {
     this.input = panel.querySelector('.js-input-tooltips__input');
     this.input.checked = state.tooltips;
@@ -16,7 +16,7 @@ class InputTooltips {
     );
   }
 
-  private handleInputChange(callback: Function): void {
+  private handleInputChange(callback: CallBack): void {
     callback({ tooltips: this.input.checked });
   }
 }

@@ -1,4 +1,4 @@
-import { Settings } from './../../../types';
+import { Settings, CallBack } from './../../../types';
 
 class InputHints {
   private input: HTMLInputElement;
@@ -6,7 +6,7 @@ class InputHints {
   constructor(
     panel: HTMLDivElement,
     state: Partial<Settings>,
-    callback: Function
+    callback: CallBack
   ) {
     this.input = panel.querySelector('.js-input-hints__input');
     this.input.checked = state.hints;
@@ -17,7 +17,7 @@ class InputHints {
     );
   }
 
-  private handleInputChange(callback: Function): void {
+  private handleInputChange(callback: CallBack): void {
     callback({ hints: this.input.checked });
   }
 }

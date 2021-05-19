@@ -7,7 +7,7 @@ import InputTooltips from '../input-tooltips/Input-tooltips';
 import InputScale from '../input-scale/Input-scale';
 import InputOrientation from '../input-orientation/Input-orientation';
 import InputType from '../input-type/Input-type';
-import { Settings } from '../../../../src/types';
+import { Settings, CallBack } from './../../../types';
 
 export default class Panel {
   private panel: HTMLDivElement;
@@ -24,7 +24,7 @@ export default class Panel {
   constructor(
     root: HTMLDivElement,
     state: Partial<Settings>,
-    callback: Function
+    callback: CallBack
   ) {
     this.panel = root.querySelector('.js-panel');
     this.thumbs = new InputThumbs(this.panel, state, callback);

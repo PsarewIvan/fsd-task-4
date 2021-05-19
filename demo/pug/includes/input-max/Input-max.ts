@@ -1,4 +1,4 @@
-import { Settings } from './../../../types';
+import { Settings, CallBack } from './../../../types';
 
 class InputMax {
   private input: HTMLInputElement;
@@ -6,7 +6,7 @@ class InputMax {
   constructor(
     panel: HTMLDivElement,
     state: Partial<Settings>,
-    callback: Function
+    callback: CallBack
   ) {
     this.input = panel.querySelector('.js-input-max__input');
     this.input.value = state.max.toString();
@@ -20,7 +20,7 @@ class InputMax {
     this.input.value = max.toString();
   }
 
-  private handleInputChange(callback: Function): void {
+  private handleInputChange(callback: CallBack): void {
     callback({ max: Number(this.input.value) });
   }
 }

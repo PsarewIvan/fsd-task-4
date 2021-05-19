@@ -1,4 +1,4 @@
-import { Settings } from './../../../types';
+import { Settings, CallBack } from './../../../types';
 
 class InputOrientation {
   private inputs: NodeListOf<HTMLInputElement>;
@@ -7,7 +7,7 @@ class InputOrientation {
   constructor(
     panel: HTMLDivElement,
     state: Partial<Settings>,
-    callback: Function
+    callback: CallBack
   ) {
     InputOrientation.id += 1;
     this.inputs = panel.querySelectorAll('.js-input-orientation__input');
@@ -26,7 +26,7 @@ class InputOrientation {
     });
   }
 
-  private handleInputChange(callback: Function, input: HTMLInputElement): void {
+  private handleInputChange(callback: CallBack, input: HTMLInputElement): void {
     callback({ orientation: input.value });
   }
 

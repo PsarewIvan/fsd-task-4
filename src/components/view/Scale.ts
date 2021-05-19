@@ -12,7 +12,7 @@ class Scale extends SliderElement {
   public render(state: Settings): void {
     this.clearRoot();
     const markNumber = state.scaleMark * state.subScaleMark;
-    const step: number =
+    const step =
       (state.max - state.min) / (state.scaleMark * state.subScaleMark);
     const fragment = document.createDocumentFragment();
     for (let i = 0; i <= markNumber; i += 1) {
@@ -60,7 +60,7 @@ class Scale extends SliderElement {
     index: number,
     subMark: number
   ): HTMLElement {
-    const markElement: HTMLElement = document.createElement('span');
+    const markElement = document.createElement('span');
     markElement.classList.add('free-slider__scale-mark');
     markElement.style[this.directionType] = `${(index * 100) / markNumber}%`;
     if (index % subMark === 0) {
@@ -71,7 +71,7 @@ class Scale extends SliderElement {
 
   private renderTick(state: TickState): HTMLElement {
     if (state.index % state.subMark === 0) {
-      const tick: HTMLElement = document.createElement('span');
+      const tick = document.createElement('span');
       tick.classList.add('free-slider__scale-text');
       tick.style[this.directionType] = `${
         (state.index * 100) / state.markNumber

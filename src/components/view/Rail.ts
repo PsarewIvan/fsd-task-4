@@ -55,9 +55,9 @@ class Rail extends SliderElement {
   }
 
   private percentFromThumbShift(thumbShift: number): number {
-    const railSize: number = this.size;
-    const distanceFromRailToScreen: number = this.distanceToScreen;
-    let percent: number = (thumbShift - distanceFromRailToScreen) / railSize;
+    const railSize = this.size;
+    const distanceFromRailToScreen = this.distanceToScreen;
+    let percent = (thumbShift - distanceFromRailToScreen) / railSize;
     if (percent <= 0) {
       percent = 0;
     }

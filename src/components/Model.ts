@@ -33,10 +33,10 @@ class Model {
 
   // Производит проверки перед обновлением модели
   public updateModel(newSettings: Partial<Settings>): void {
-    const isHintsChange: boolean =
+    const isHintsChange =
       typeof newSettings.hints === 'boolean' &&
       newSettings.hints !== this.settings.hints;
-    const isTooltipsChange: boolean =
+    const isTooltipsChange =
       typeof newSettings.tooltips === 'boolean' &&
       newSettings.tooltips !== this.settings.tooltips;
 
@@ -73,8 +73,8 @@ class Model {
   // корректной работы View:
   // settings.percents - массив значений в процентах
   public getSettings(): Settings {
-    const settingsClone: Settings = _.cloneDeep(this.settings);
-    const range: number = settingsClone.max - settingsClone.min;
+    const settingsClone = _.cloneDeep(this.settings);
+    const range = settingsClone.max - settingsClone.min;
     settingsClone.percents = settingsClone.values.map((value: number) => {
       return (value - settingsClone.min) / range;
     });
@@ -135,10 +135,7 @@ class Model {
   // новых значений слайдера
   private updateValues(values: number[]): void {
     const updatedValues = this.changeInputValues(values);
-    const isValuesUpdate: boolean = !this.isEqual(
-      updatedValues,
-      this.settings.values
-    );
+    const isValuesUpdate = !this.isEqual(updatedValues, this.settings.values);
     if (isValuesUpdate) {
       this.setSettings({ values: updatedValues });
       this.modelChangedSubject.notify('onChange', this.getSettings());
@@ -255,7 +252,7 @@ class Model {
     const isTypeChange = type !== this.settings.type;
     if (isTypeValid && isTypeChange) {
       this.setSettings({ type: type });
-      const newValues: number[] =
+      const newValues =
         type === this.constants.SINGLE
           ? [(this.settings.max + this.settings.min) / 2]
           : [this.settings.min, this.settings.max];

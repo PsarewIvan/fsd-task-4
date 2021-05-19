@@ -6,8 +6,7 @@ import { Settings, Methods } from './types';
   const methods: Methods = {
     init(options?: Partial<Settings>): JQuery {
       return this.each((_i: number, node: HTMLElement) => {
-        const freeSlider: FreeSlider = new FreeSlider(node, options);
-
+        const freeSlider = new FreeSlider(node, options);
         $(this).data('freeSlider', freeSlider);
       });
     },

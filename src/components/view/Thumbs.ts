@@ -37,7 +37,7 @@ class Thumbs {
     handler: Function,
     onFinish: Function
   ): void {
-    const clickOffset: number =
+    const clickOffset =
       evt[currentThumb.coordsType] -
       currentThumb.distanceToScreen -
       this.getThumbSize() / 2;
@@ -47,8 +47,8 @@ class Thumbs {
       window.ontouchmove = (evt: Event) => {
         evt.preventDefault();
       };
-      const index: number = this.getCurrentThumbIndex(currentThumb);
-      const thumbShift: number = evt[currentThumb.coordsType] - clickOffset;
+      const index = this.getCurrentThumbIndex(currentThumb);
+      const thumbShift = evt[currentThumb.coordsType] - clickOffset;
       handler(thumbShift, index);
     };
 
@@ -74,7 +74,7 @@ class Thumbs {
       return reqThumbState;
     }
 
-    const range: number =
+    const range =
       this.thumbs[1].distanceToScreen - this.thumbs[0].distanceToScreen;
     if (clickOffset > this.thumbs[0].distanceToScreen + range / 2) {
       reqThumbState.index = 1;

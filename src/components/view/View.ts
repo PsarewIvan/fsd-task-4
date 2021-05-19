@@ -73,10 +73,10 @@ class View {
   // Форматирует текущее процентное значение в проценты необходимые
   // для отрисовки бара
   private formatPercents(percents: number[]): number[] {
-    const trackSize: number = this.track.size;
-    const thumbsSize: number = this.rail.getThumbSize();
-    const ratio: number = (trackSize - thumbsSize) / trackSize;
-    const extraRatio: number = thumbsSize / trackSize / 2;
+    const trackSize = this.track.size;
+    const thumbsSize = this.rail.getThumbSize();
+    const ratio = (trackSize - thumbsSize) / trackSize;
+    const extraRatio = thumbsSize / trackSize / 2;
     const formatPercents = percents.map((percent) => {
       return percent * ratio + extraRatio;
     });

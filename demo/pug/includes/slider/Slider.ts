@@ -24,6 +24,8 @@ class Slider {
   private callback(newState: Partial<Settings>): void {
     $(this.slider).freeSlider('update', newState);
     this.changeSliderClassModificator(newState.orientation);
+    this.updateState();
+    this.panel.updateElements(this.state);
   }
 
   private updateState(state?: Partial<Settings>): void {

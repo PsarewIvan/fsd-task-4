@@ -149,28 +149,40 @@ class Model {
   // Изменяет новые значения, если они выходят из диапазона допустимых
   // значений
   private changeInputValues(values: number[]): number[] {
+    const updatedFromStepValues = values.map((val) => {
+      return Math.round(val / this.settings.step) * this.settings.step;
+    });
     const currentValues = this.getSettings().values;
     currentValues.forEach((value, i) => {
-      if (typeof values[i] !== 'number') values[i] = value;
-      if (values[i] < this.settings.min) values[i] = this.settings.min;
-      if (values[i] > this.settings.max) values[i] = this.settings.max;
+      if (typeof updatedFromStepValues[i] !== 'number')
+        updatedFromStepValues[i] = value;
+      if (updatedFromStepValues[i] < this.settings.min)
+        updatedFromStepValues[i] = this.settings.min;
+      if (updatedFromStepValues[i] > this.settings.max)
+        updatedFromStepValues[i] = this.settings.max;
     });
     const clone = _.cloneDeep(this.settings.values);
-    const isChangeBoth = values[0] !== clone[0] && values[1] !== clone[1];
-    const isChangeFirst = values[0] !== clone[0] && values[1] === clone[1];
-    const isChangeSecond = values[0] === clone[0] && values[1] !== clone[1];
-    const isFirstGreater = values[0] > clone[1];
-    const isSecondLess = values[1] < clone[0];
+    const isChangeBoth =
+      updatedFromStepValues[0] !== clone[0] &&
+      updatedFromStepValues[1] !== clone[1];
+    const isChangeFirst =
+      updatedFromStepValues[0] !== clone[0] &&
+      updatedFromStepValues[1] === clone[1];
+    const isChangeSecond =
+      updatedFromStepValues[0] === clone[0] &&
+      updatedFromStepValues[1] !== clone[1];
+    const isFirstGreater = updatedFromStepValues[0] > clone[1];
+    const isSecondLess = updatedFromStepValues[1] < clone[0];
     if (isChangeBoth) {
-      values.sort((a, b) => a - b);
+      updatedFromStepValues.sort((a, b) => a - b);
     }
     if (isChangeFirst && isFirstGreater) {
-      values[0] = clone[1];
+      updatedFromStepValues[0] = clone[1];
     }
     if (isChangeSecond && isSecondLess) {
-      values[1] = clone[0];
+      updatedFromStepValues[1] = clone[0];
     }
-    return values;
+    return updatedFromStepValues;
   }
 
   private updateStep(step: number): void {

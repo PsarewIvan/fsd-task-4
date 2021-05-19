@@ -118,34 +118,34 @@ describe('Single slider', () => {
     expect(model.getSettings().values).toEqual([500]);
   });
 
-  it('Step should be update, when step value more then 0', () => {
+  it('"Step" should be update, when "step" more then 0', () => {
     model.updateModel({ step: 10 });
     expect(model.getSettings().step).toBe(10);
   });
 
-  it('Step should be update to 1, when step value less then 0', () => {
+  it('"Step" should be update to 1, when "step" less then 0', () => {
     model.updateModel({ step: -4 });
     expect(model.getSettings().step).toBe(1);
   });
 
-  it('Min should be update, when value less than thumb value', () => {
+  it('"Min" should be update, when "min" less than "thumb"', () => {
     model.updateModel({ min: 50 });
     expect(model.getSettings().min).toBe(50);
   });
 
-  it('Min should be update to thumb, when value more than thumb value', () => {
-    model.updateModel({ min: 300 });
-    expect(model.getSettings().min).toBe(100);
+  it('"Min" should be update to "max" minus "step", when "min" more than "max"', () => {
+    model.updateModel({ min: 600 });
+    expect(model.getSettings().min).toBe(498);
   });
 
-  it('Max should be update, when value more than thumb value', () => {
+  it('"Max" should be update, when "max" more than "thumb"', () => {
     model.updateModel({ max: 200 });
     expect(model.getSettings().max).toBe(200);
   });
 
-  it('Max should be update to thumb, when value less than thumb value', () => {
+  it('"Max" should be update to "min" plus "ste", when "max" less than "thumb"', () => {
     model.updateModel({ max: 0 });
-    expect(model.getSettings().max).toBe(100);
+    expect(model.getSettings().max).toBe(2);
   });
 
   it('Value should be update on view method with percents', () => {
@@ -206,14 +206,14 @@ describe('Range slider', () => {
     expect(model.getSettings().min).toBe(120);
   });
 
-  it('Min should be update to first thumb, when value more than first thumb value', () => {
+  it('Min should be update to max minus step, when value more than first thumb value', () => {
     model.updateModel({ min: 400 });
-    expect(model.getSettings().min).toBe(150);
+    expect(model.getSettings().min).toBe(299);
   });
 
-  it('Max should be update, when value less than second thumb value', () => {
+  it('Max should be update to min plus step, when value less than second thumb value', () => {
     model.updateModel({ max: 0 });
-    expect(model.getSettings().max).toBe(200);
+    expect(model.getSettings().max).toBe(101);
   });
 
   it('Max should be update to second thumb, when value more than second thumb value', () => {

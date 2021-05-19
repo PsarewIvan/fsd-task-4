@@ -150,7 +150,10 @@ class Model {
   // значений
   private changeInputValues(values: number[]): number[] {
     const updatedFromStepValues = values.map((val) => {
-      return Math.round(val / this.settings.step) * this.settings.step;
+      return this.round(
+        Math.round(val / this.settings.step) * this.settings.step,
+        5
+      );
     });
     const currentValues = this.getSettings().values;
     currentValues.forEach((value, i) => {
@@ -294,7 +297,6 @@ class Model {
     const isDeductStep = value % step < step / 2;
     if (isAddStep && isValueInRange) value = value + step - (value % step);
     if (isDeductStep && isValueInRange) value = value - (value % step);
-    value = this.round(value, 5);
     return value;
   }
 

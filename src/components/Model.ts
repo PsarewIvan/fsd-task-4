@@ -181,17 +181,46 @@ class Model {
   }
 
   private updateMin(value: number): void {
-    if (value >= this.settings.values[0]) {
-      value = this.settings.values[0];
+    const minThumbValues = this.settings.values[0];
+    const maxMinValue = this.settings.max - this.settings.step;
+
+    if (value <= minThumbValues) {
+      this.setSettings({ min: value });
     }
-    this.setSettings({ min: value });
+    if (value > minThumbValues && value <= maxMinValue) {
+      this.setSettings({ min: value });
+      this.updateValues([value].concat(this.settings.values.slice(1)));
+    }
+    if (value > maxMinValue) {
+      this.setSettings({ min: maxMinValue });
+      this.updateValues([maxMinValue].concat(this.settings.values.slice(1)));
+    }
   }
 
   private updateMax(value: number): void {
-    if (value <= this.settings.values[this.settings.values.length - 1]) {
-      value = this.settings.values[this.settings.values.length - 1];
+    const maxThumbValues =
+      this.settings.values[this.settings.values.length - 1];
+    const minMaxValues = this.settings.min + this.settings.step;
+
+    if (value >= maxThumbValues) {
+      this.setSettings({ max: value });
     }
-    this.setSettings({ max: value });
+    if (value < maxThumbValues && value >= minMaxValues) {
+      this.setSettings({ max: value });
+      this.updateValues(
+        this.settings.values
+          .slice(0, this.settings.values.length - 1)
+          .concat(value)
+      );
+    }
+    if (value < minMaxValues) {
+      this.setSettings({ max: minMaxValues });
+      this.updateValues(
+        this.settings.values
+          .slice(0, this.settings.values.length - 1)
+          .concat(minMaxValues)
+      );
+    }
   }
 
   private changeOrientation(orientation: SliderOrientation): void {

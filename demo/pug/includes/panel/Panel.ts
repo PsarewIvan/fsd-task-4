@@ -40,7 +40,7 @@ export default class Panel {
 
   public updateElements(state: Partial<Settings>): void {
     this.thumbs.update(state);
-    this.min.updateAttribute(state.values);
-    this.max.updateAttribute(state.values);
+    this.min.update(state.min);
+    this.max.update(state.max);
   }
 }

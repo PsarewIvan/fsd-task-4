@@ -1,4 +1,4 @@
-import InputThumbs from '../input-thumbs/input-thumbs';
+import InputThumbs from '../input-thumbs/Input-thumbs';
 import InputMin from '../input-min/Input-min';
 import InputMax from '../input-max/Input-max';
 import InputStep from '../input-step/Input-step';

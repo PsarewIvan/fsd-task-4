@@ -45,6 +45,7 @@ class Model {
     }
     if (typeof newSettings.step === 'number') {
       this.updateStep(newSettings.step);
+      this.updateValues(this.settings.values);
     }
     if (typeof newSettings.min === 'number') {
       this.updateMin(newSettings.min);
